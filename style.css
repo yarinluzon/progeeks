@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
     body {
       font-family: Arial, sans-serif;
@@ -51,4 +52,59 @@
   height: 100%;
   z-index: -1;
   background: #245f79; /* צבע רקע בסיס */
+=======
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+      direction: rtl;
+
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .conditional {
+      display: none;
+    }
+    #backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #245f79; /* צבע רקע בסיס */
+>>>>>>> 09e79a4e3b59baa43e23b27255a07c60776ccf1e
 }
