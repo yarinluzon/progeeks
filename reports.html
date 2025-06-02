@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>דיווחים - תחרות מחבואים MPG</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f2f2f2; direction: rtl; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    h2 { text-align: center; margin-bottom: 20px; }
+    .report { border-bottom: 1px solid #ddd; padding: 10px 0; }
+    .report:last-child { border-bottom: none; }
+    .label { font-weight: bold; }
+    a { color: #4caf50; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img, video { max-width: 100%; max-height: 250px; margin-top: 5px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>כל הדיווחים ששמרת</h2>
+    <div id="reportsList"></div>
+
+    <button onclick="clearReports()" style="margin-top: 20px; background:#f44336; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">
+      מחק את כל הדיווחים
+    </button>
+
+    <p style="margin-top:20px;">
+      <a href="index.html">חזור לטופס דיווח</a>
+    </p>
+  </div>
+
+  <script>
+    function calculatePoints(report) {
+      let points = 0;
+      if (report.survivedToEnd === "yes") points += 10;
+      if (report.lastHider === "yes") points += 10;
+      const caught = parseInt(report.caughtCount);
+      if (!isNaN(caught)) points += caught;
+      return points;
+    }
+
+    function displayProof(proofData) {
+      if (!proofData) return 'לא צורפה הוכחה';
+      if (proofData.startsWith('data:image')) {
+        return `<img src="${proofData}" alt="תמונה" />`;
+      } else if (proofData.startsWith('data:video')) {
+        return `<video controls><source src="${proofData}" type="video/mp4">הדפדפן לא תומך בווידאו.</video>`;
+      } else {
+        return 'סוג הוכחה לא נתמך';
+      }
+    }
+
+    function renderReports() {
+      const reportsList = document.getElementById('reportsList');
+      const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+
+      if (reports.length === 0) {
+        reportsList.innerHTML = '<p>אין דיווחים שמורים.</p>';
+        return;
+      }
+
+      reportsList.innerHTML = '';
+
+      reports.forEach((r, i) => {
+        const points = calculatePoints(r);
+
+        const div = document.createElement('div');
+        div.classList.add('report');
+
+        div.innerHTML = `
+          <p><span class="label">דיווח #${i + 1} - ${r.date}</span></p>
+          <p><span class="label">שם שחקן במשחק:</span> ${r.playerName}</p>
+          <p><span class="label">שם שחקן בדיסקורד:</span> ${r.discordName}</p>
+          <p><span class="label">ראונד:</span> ${r.roundNumber}</p>
+          <p><span class="label">תפקיד:</span> ${r.role}</p>
+          <p><span class="label">האם שרד עד סוף הראונד:</span> ${r.survivedToEnd}</p>
+          <p><span class="label">האם היה בין 10 האחרונים:</span> ${r.top10}</p>
+          <p><span class="label">האם היה האחרון שנותר:</span> ${r.lastHider}</p>
+          <p><span class="label">כמה שחקנים תפסת:</span> ${r.caughtCount}</p>
+          <p><span class="label">תפס הכי הרבה שחקנים לדעתך:</span> ${r.mostCatches}</p>
+          <p><span class="label">🔢 ניקוד סופי:</span> ${points} נקודות</p>
+          <p><span class="label">הוכחה:</span><br>${displayProof(r.proofData)}</p>
+          <p><span class="label">הערות:</span> ${r.notes}</p>
+        `;
+
+        reportsList.appendChild(div);
+      });
+    }
+
+    function clearReports() {
+      if(confirm('אתה בטוח שברצונך למחוק את כל הדיווחים?')) {
+        localStorage.removeItem('reports');
+        renderReports();
+      }
+    }
+
+    renderReports();
+  </script>
+</body>
+</html>
