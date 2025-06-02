@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>טופס דיווח - מחבואים</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+  <div class="form-container">
+    <h2>טופס דיווח ראונד - תחרות מחבואים MPG - פרוגיקס לנוער</h2>
+    <form id="reportForm">
+      <label for="playerName">שם שחקן במשחק:</label>
+      <input type="text" id="playerName" name="playerName" required />
+
+      <label for="discordName">שם שחקן בדיסקורד:</label>
+      <input type="text" id="discordName" name="discordName" required />
+
+      <label for="roundNumber">מספר ראונד:</label>
+      <select id="roundNumber" name="roundNumber" required>
+        <option value="">בחר ראונד</option>
+        <option value="1">ראונד 1</option>
+        <option value="2">ראונד 2</option>
+        <option value="3">ראונד 3</option>
+        <option value="4">ראונד 4</option>
+        <option value="5">ראונד 5</option>
+      </select>
+
+      <label for="role">מה היה התפקיד שלך?</label>
+      <select id="role" name="role" required>
+        <option value="">בחר</option>
+        <option value="hider">הייתי מתחבא</option>
+        <option value="seeker">הייתי מחפש</option>
+      </select>
+
+      <!-- מתחבא -->
+      <div id="hiderSection" class="conditional">
+        <label>האם שרדת עד סוף הראונד?</label>
+        <select name="survivedToEnd">
+          <option value="">בחר</option>
+          <option value="yes">כן</option>
+          <option value="no">לא</option>
+        </select>
+
+        <label>האם היית בין 10 האחרונים?</label>
+        <select name="top10">
+          <option value="">בחר</option>
+          <option value="yes">כן</option>
+          <option value="no">לא</option>
+        </select>
+
+        <label>האם היית האחרון שנותר?</label>
+        <select name="lastHider">
+          <option value="">בחר</option>
+          <option value="yes">כן</option>
+          <option value="no">לא</option>
+        </select>
+      </div>
+
+      <!-- מחפש -->
+      <div id="seekerSection" class="conditional">
+        <label>כמה שחקנים תפסת?</label>
+        <input type="number" name="caughtCount" min="0" />
+
+        <label>האם תפסת הכי הרבה שחקנים לדעתך?</label>
+        <select name="mostCatches">
+          <option value="">בחר</option>
+          <option value="yes">כן</option>
+          <option value="no">לא</option>
+          <option value="unsure">לא בטוח</option>
+        </select>
+      </div>
+
+<!-- רק הקטע של הוכחה מעודכן -->
+<label for="proofFile">העלה הוכחה (תמונה או וידאו):</label>
+<input type="file" id="proofFile" name="proofFile" accept="image/*,video/*" style="display: none;" />
+<button type="button" onclick="document.getElementById('proofFile').click()" style="margin-bottom:10px;">
+  בחר קובץ
+</button>
+<span id="fileNameDisplay"></span>
+
+      <label for="notes">הערות נוספות:</label>
+      <textarea id="notes" name="notes" rows="3"></textarea>
+
+      <button type="submit">שלח דיווח</button>
+      <a href="reports.html">דוח</a>
+    </form>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
